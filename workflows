@@ -1,0 +1,30 @@
+name: Deploy to Cloud Run
+
+on:
+  push:
+    branches:
+      - main  # Change this to your default branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.2.0
+        with:
+          service_account_key: ${{ secrets.SERVICE__ACCOUNT }}
+          project_id: submissionmlgc-eunice  
+          export_default_credentials: true
+
+      - name: Build and Deploy to Cloud Run
+        run: |
+          gcloud builds submit --tag gcr.io/$PROJECT_ID/cancer-prediction-be
+          gcloud run deploy your-service-name \
+            --image gcr.io/$PROJECT_ID/cancer-prediction-be \
+            --platform managed \
+            --region asia-southeast2 \
+            --allow-unauthenticated  
