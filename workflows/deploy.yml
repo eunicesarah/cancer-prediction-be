@@ -22,9 +22,9 @@ jobs:
 
       - name: Build and Deploy to Cloud Run
         run: |
-          gcloud builds submit --tag gcr.io/$PROJECT_ID/cancer-prediction-be
+          gcloud builds submit --tag gcr.io/submissionmlgc-eunice/cancer-prediction-be
           gcloud run deploy your-service-name \
-            --image gcr.io/$PROJECT_ID/cancer-prediction-be \
+            --image gcr.io/submissionmlgc-eunice/cancer-prediction-be \
             --platform managed \
             --region asia-southeast2 \
             --allow-unauthenticated  
